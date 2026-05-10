@@ -14,6 +14,7 @@ def get_project_entries(session, project):
 def generate_summary(entries):
   goals = []
   accomplished_goals = []
+  unfinished_goals = []
   for entry in entries:
     goal = entry.get('goal', None) or None
     context = entry.get('context', "") or ""
@@ -23,6 +24,8 @@ def generate_summary(entries):
       goals.append(goal + context)
       if entry.get('state', None) == 'done':
         accomplished_goals.append(goal)
+      else:
+        unfinished_goals.append(goal)
   goals = set(goals)
   accomplished_goals = set(accomplished_goals)
   unsolved_problems = (entries[-1].get('problems', []) or [])
@@ -35,6 +38,10 @@ def generate_summary(entries):
   if accomplished_goals:
     print("# Co udało mi się zrobić")
     print('\n'.join([f'- {goal}' for goal in accomplished_goals]))
+    print("")
+  if accomplished_goals:
+    print("# Co trzeba dokończyć")
+    print('\n'.join([f'- {goal}' for goal in unfinished_goals]))
     print("")
   if unsolved_problems:
     print("# Co mnie blokuje")
