@@ -32,17 +32,13 @@ def generate_summary(entries):
   else:
     print("Brak celów.")
   print("")
-  print("# Co udało mi się zrobić")
   if accomplished_goals:
+    print("# Co udało mi się zrobić")
     print('\n'.join([f'- {goal}' for goal in accomplished_goals]))
-  else:
-    print("Nic nie udało się zrobić.")
-  print("")
-  print("# Co mnie blokuje")
+    print("")
   if unsolved_problems:
+    print("# Co mnie blokuje")
     print('\n'.join([f'- {problem.replace("\n", " ")}' for problem in unsolved_problems]))
-  else:
-    print("Nic mnie nie blokuje.")
 
 
 if __name__ == "__main__":
