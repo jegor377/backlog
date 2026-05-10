@@ -39,7 +39,7 @@ def generate_summary(entries):
     print("# Co udało mi się zrobić")
     print('\n'.join([f'- {goal}' for goal in accomplished_goals]))
     print("")
-  if accomplished_goals:
+  if unfinished_goals:
     print("# Co trzeba dokończyć")
     print('\n'.join([f'- {goal}' for goal in unfinished_goals]))
     print("")
