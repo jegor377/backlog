@@ -1,0 +1,48 @@
+#!/bin/bash
+if [ ! -d "sessions" ]; then
+  mkdir sessions
+  echo "Directory 'sessions' created successfully."
+fi
+current_date=$(date -u +"%Y-%m-%d")
+session_file="sessions/${current_date}.yaml"
+current_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+if [ ! -f "$session_file" ]; then
+  cat <<EOL > "$session_file"
+version: '1'
+date: $current_date
+entries:
+  - start: $current_time
+    end:
+    spent:
+    project:
+    goal:
+    state: in_progress
+    context:
+    actions:
+    problems:
+    accoplishments:
+next_steps:    
+EOL
+  echo "Session file '$session_file' created successfully."
+else
+  CURRENT_DATE="$current_date" \
+  CURRENT_TIME="$current_time" \
+  bash scripts/finish.sh
+
+  CURRENT_TIME="$current_time" \
+  yq eval '
+  .entries += [{
+    "start": env(CURRENT_TIME),
+    "end": null,
+    "spent": null,
+    "project": null,
+    "goal": null,
+    "state": "in_progress",
+    "context": null,
+    "actions": null,
+    "problems": null,
+    "accomplishments": null
+  }]' -i "$session_file"
+  sed -i 's/: null$/:/' "$session_file"
+  echo "New entry added to session file '$session_file'."
+fi

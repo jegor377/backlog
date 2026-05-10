@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  start:
+    desc: Start new entry in today's session
+    silent: true
+    cmds:
+      - ./scripts/start.sh
+  finish:
+    desc: Finish current entry in today's session
+    silent: true
+    cmds:
+      - ./scripts/finish.sh
+  summarize:
+    desc: Summarize today's session
+    summary: >
+      A script that summarizes today's session. It requires you
+      to set PROJECT env variable with the value of the project that you want to summarize.
+    silent: true
+    cmds:
+      - uv run scripts/summarize.py
