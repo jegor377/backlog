@@ -25,9 +25,12 @@ next_steps:
 EOL
   echo "Session file '$session_file' created successfully."
 else
-  CURRENT_DATE="$current_date" \
-  CURRENT_TIME="$current_time" \
-  bash scripts/finish.sh
+  last_end_value=$(yq ".entries[-1].end" "$session_file")
+  if [ "$last_end_value" == "" ]; then
+    CURRENT_DATE="$current_date" \
+    CURRENT_TIME="$current_time" \
+    bash scripts/finish.sh
+  fi
 
   CURRENT_TIME="$current_time" \
   yq eval '
