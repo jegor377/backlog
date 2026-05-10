@@ -18,7 +18,7 @@ def generate_summary(entries):
     goal = entry.get('goal', None) or None
     context = entry.get('context', "") or ""
     if context != "":
-      context = f" ({context})"
+      context = f" ({context.strip()})"
     if goal:
       goals.append(goal + context)
       if entry.get('state', None) == 'done':
