@@ -5,7 +5,7 @@ from datetime import datetime
 
 def get_project_entries(session, project):
   filtered_entries = filter(
-    lambda entry: entry.get("project", None), 
+    lambda entry: entry.get("project", None) == project, 
     session.get("entries", []) or []
   )
   return list(filtered_entries)
