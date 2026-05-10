@@ -23,6 +23,8 @@ def generate_summary(entries):
       goals.append(goal + context)
       if entry.get('state', None) == 'done':
         accomplished_goals.append(goal)
+  goals = set(goals)
+  accomplished_goals = set(accomplished_goals)
   unsolved_problems = (entries[-1].get('problems', []) or [])
   print("# Nad czym pracowałem")
   if goals:
