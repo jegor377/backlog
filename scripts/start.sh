@@ -21,7 +21,7 @@ entries:
     actions:
     problems:
     accoplishments:
-next_steps:    
+next_steps:
 EOL
   echo "Session file '$session_file' created successfully."
 else
