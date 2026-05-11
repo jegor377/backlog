@@ -7,6 +7,7 @@ current_date=$(date -u +"%Y-%m-%d")
 session_file="sessions/${current_date}.yaml"
 current_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 if [ ! -f "$session_file" ]; then
+  previous_file=$(ls -t -1 sessions | head -n 1)
   cat <<EOL > "$session_file"
 version: '1'
 date: $current_date
@@ -23,6 +24,10 @@ entries:
     accoplishments:
 next_steps:
 EOL
+  if [ ! -z "$previous_file" ]; then
+    previous_file=sessions/$previous_file
+    yq eval ".next_steps = load(\"$previous_file\").next_steps" "$session_file" -i
+  fi
   echo "Session file '$session_file' created successfully."
 else
   last_end_value=$(yq ".entries[-1].end" "$session_file")
