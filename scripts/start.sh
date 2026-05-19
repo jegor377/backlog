@@ -16,9 +16,10 @@ entries:
     end:
     spent:
     project:
+    task:
     goal:
-    state: in_progress
     context:
+    state: in_progress
     actions:
     problems:
     accoplishments:
@@ -44,9 +45,10 @@ else
     "end": null,
     "spent": null,
     "project": null,
+    "task": null,
     "goal": null,
-    "state": "in_progress",
     "context": null,
+    "state": "in_progress",
     "actions": null,
     "problems": null,
     "accomplishments": null

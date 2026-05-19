@@ -57,18 +57,18 @@ def generate_summary(session, project):
     if context != "":
       context = f" ({context.strip()})"
     if goal:
-      goals.append(goal + context)
-      if entry.get('state', None) == 'done':
+      new_goal = goal + context
+      if new_goal not in goals:
+        goals.append(new_goal)
+      if entry.get('state', None) == 'done' and goal not in accomplished_goals:
         accomplished_goals.append(goal)
-      else:
+      elif goal not in unfinished_goals:
         unfinished_goals.append(goal)
       if entry.get('state', 'in_progress') == 'in_progress':
         unsolved_problems = entry.get('problems', []) or []
   if found == 0:
     print(f"No entries for project {project} in today's session.")
     exit(1)
-  goals = set(goals)
-  accomplished_goals = set(accomplished_goals)
   print("# Nad czym pracowałem")
   if goals:
     print('\n'.join([f'- {goal}' for goal in goals]))
